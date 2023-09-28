@@ -267,7 +267,7 @@ local function CreateNewDrop(source, fromSlot, toSlot, itemAmount)
 		TriggerClientEvent("inventory:client:DropItemAnim", source)
 		TriggerClientEvent("inventory:client:AddDropItem", -1, dropId, source, coords)
 	else
-		TriggerClientEvent("QBCore:Notify", source, Lang:t("error.not_owned"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+		TriggerClientEvent("QBCore:Notify", source, 9, Lang:t("error.not_owned"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 		return
 	end
 end
@@ -606,7 +606,7 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				end
 			end
 		else
-			TriggerClientEvent("QBCore:Notify", src, Lang:t("error.not_owned"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+			TriggerClientEvent("QBCore:Notify", src, 9, Lang:t("error.not_owned"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 		end
 	elseif exports['qbr-core']:SplitStr(fromInventory, "-")[1] == "otherplayer" then
 		local playerId = tonumber(exports['qbr-core']:SplitStr(fromInventory, "-")[2])
@@ -651,7 +651,7 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				OtherPlayer.Functions.AddItem(itemInfo["name"], fromAmount, toSlot, fromItemData.info)
 			end
 		else
-			TriggerClientEvent("QBCore:Notify", src, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+			TriggerClientEvent("QBCore:Notify", src, 9, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 		end
 	elseif exports['qbr-core']:SplitStr(fromInventory, "-")[1] == "stash" then
 		local stashId = exports['qbr-core']:SplitStr(fromInventory, "-")[2]
@@ -695,7 +695,7 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				AddToStash(stashId, toSlot, fromSlot, itemInfo["name"], fromAmount, fromItemData.info)
 			end
 		else
-			TriggerClientEvent("QBCore:Notify", src, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+			TriggerClientEvent("QBCore:Notify", src, 9, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 		end
 	elseif exports['qbr-core']:SplitStr(fromInventory, "-")[1] == "itemshop" then
 		local shopType = exports['qbr-core']:SplitStr(fromInventory, "-")[2]
@@ -819,7 +819,7 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				AddToDrop(toInventory, toSlot, itemInfo["name"], fromAmount, fromItemData.info)
 			end
 		else
-			TriggerClientEvent("QBCore:Notify", src, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+			TriggerClientEvent("QBCore:Notify", src, 9, Lang:t("error.not_exist"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 		end
 	end
 end)
@@ -844,7 +844,7 @@ RegisterServerEvent("inventory:server:GiveItem", function(target, inventory, ite
 		end
 		if OtherPlayer.Functions.AddItem(item.name, amount, false, item.info) then
 			TriggerClientEvent('inventory:client:ItemBox',target, sharedItems[item.name], "add")
-			TriggerClientEvent('QBCore:Notify', target, Lang:t("success.recieved", {amount = amount, item = item.label, firstname = Player.PlayerData.charinfo.firstname, lastname = Player.PlayerData.charinfo.lastname}), 5000, 0, 'hud_textures', 'check', 'COLOR_WHITE')
+			TriggerClientEvent('QBCore:Notify', target, 9, Lang:t("success.recieved", {amount = amount, item = item.label, firstname = Player.PlayerData.charinfo.firstname, lastname = Player.PlayerData.charinfo.lastname}), 5000, 0, 'hud_textures', 'check', 'COLOR_WHITE')
 			TriggerClientEvent("inventory:client:UpdatePlayerInventory", target, true)
 			Player.Functions.RemoveItem(item.name, amount, item.slot)
 			TriggerClientEvent('inventory:client:ItemBox',src, sharedItems[item.name], "remove")
@@ -855,7 +855,7 @@ RegisterServerEvent("inventory:server:GiveItem", function(target, inventory, ite
 		else
 
 			TriggerClientEvent('QBCore:Notify', src, 9, Lang:t("error.otherfull"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
-			TriggerClientEvent('QBCore:Notify', target, Lang:t("error.invfull"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+			TriggerClientEvent('QBCore:Notify', target, 9, Lang:t("error.invfull"), 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
 			TriggerClientEvent("inventory:client:UpdatePlayerInventory", src, false)
 			TriggerClientEvent("inventory:client:UpdatePlayerInventory", target, false)
 		end
